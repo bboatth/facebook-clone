@@ -16,12 +16,25 @@ function Feed() {
   };
 
   const [like, setLike] = useState(false);
-  const likeButton = () => {
-    setLike(!like);
+  const likeButton = (id) => {
+    console.log(id)
+    setLike(like=>({
+      ...like,
+      [id]: !like[id]
+     
+    }))
+
+
+    //setLike(!like);
   };
-  const effectBtn = like ? "text-primary" : "text-muted";
+  //const effectBtn = like ? "text-primary" : "text-muted";
 
   const [posts, setPosts] = useState([]);
+
+   
+
+
+
   const url ="https://newsapi.org/v2/everything?domains=wsj.com&apiKey=2c108728ad784b2da7a71ce65637d806";
 
   useEffect(() => {
@@ -531,14 +544,14 @@ function Feed() {
                   <hr style={styles.hrLine} />
     
                   <div className="row ">
-                    <div className="col-6 d-flex justify-content-center btn_like pointer " onClick={likeButton}>
+                    <div className="col-6 d-flex justify-content-center btn_like pointer " onClick={()=>likeButton(post.title)}>
                       <button
                         className="btn text-muted"
                         type="button"
                        
                       >
                         <i
-                          className={`fa-solid fa-thumbs-up me-3 ${effectBtn}`}
+                          className={`fa-solid fa-thumbs-up me-3 ${like[post.title] ? "text-primary":"text-muted"}`}
                         ></i>
                         <span  className="fs-8">ถูกใจ</span>
                       </button>
